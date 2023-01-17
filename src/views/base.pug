@@ -1,0 +1,18 @@
+doctype html
+html(lang="ko")
+  head
+    title #{pageTitle} | Wetube
+    link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
+  body
+    header
+      h1=pageTitle 
+            //- =variable => #{pageTitle}-> 여러 text를 같이 쓸경우 || 둘다 variable 선언하는 것이다.
+      nav
+      ul  
+        li 
+          a(href="/videos/upload") Upload Video
+    main
+      block content  
+            //- extends  각 pug 파일에서 이 block을 변경시켜줌 - 창문과 같은역할
+  include partials/footer
+  //-include partials/footer.pug
