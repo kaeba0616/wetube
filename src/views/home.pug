@@ -3,8 +3,6 @@ extends base
 include mixins/video
 
 block content  
-  h1 HOME!
-  h2 Welcom here you will see the trending Videos
   each potato in videos 
     //-li=video.title #{video}
     +videoInfo(potato)
