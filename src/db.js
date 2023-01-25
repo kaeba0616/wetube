@@ -5,6 +5,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/wetube", {
   // 오래된것들 처리하기
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  // useCreateIndex: true,
   // useFindAndModify: false,
 }); //wetube or nameofDB
 

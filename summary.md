@@ -22,3 +22,18 @@ welcome 포함하는 전체
 welcome$ 끝
 ^welcome 시작
 -> regexp
+
+hash
+
+- node.bcrypt.js (npm)
+  - rainbow table
+  - hashing을 많이 하면 할수록 보안이 좋아짐 (saltRound - hash 횟수)
+- sha256: hashing 해보는 사이트
+- hashing function : deterministic function (Computer Science)
+
+$or 각 조건이 true일 떄 실행
+
+status code
+200 OK - history에 기록 됨
+400 Bad Request - history에 기록 안됨
+404

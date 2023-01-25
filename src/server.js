@@ -4,7 +4,8 @@
 // import "./models/Coments";
 import express, { application } from "express";
 import morgan from "morgan";
-import globalRouter from "./routers/globalRouter"; //global 말고 다른 것으로 사용해도 된다. exprot default
+import session from "express-session";
+import rootRouter from "./routers/rootRouter"; //global 말고 다른 것으로 사용해도 된다. exprot default
 import videoRouter from "./routers/videoRouter"; // export default 값은 이름이 바뀔수 있지만 여러 개를  export를 하면 이름을 제대로 써야된다.
 import userRouter from "./routers/userRouter";
 
@@ -18,7 +19,14 @@ app.set("views", process.cwd() + "/src/views"); // process.cwd() 위치를 찾�
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 //- form를 javascript로 바꿔서 쓸수 있도록 설정
-app.use("/", globalRouter);
+app.use(
+  session({
+    secret: "Hello!",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
