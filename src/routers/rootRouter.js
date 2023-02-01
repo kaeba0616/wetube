@@ -7,12 +7,17 @@ import {
 } from "../controllers/userController";
 // import join from "../controllers/userController"
 import { home, search } from "../controllers/videoController";
+import { publicOnlyMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
-rootRouter.route("/join").get(getJoin).post(postJoin);
-rootRouter.route("/login", getLogin).get(getLogin).post(postLogin);
+rootRouter.route("/join").get(getJoin).all(publicOnlyMiddleware).post(postJoin);
+rootRouter
+  .route("/login", getLogin)
+  .all(publicOnlyMiddleware)
+  .get(getLogin)
+  .post(postLogin);
 rootRouter.get("/search", search);
 // rootRouter.get("/search", search);
 

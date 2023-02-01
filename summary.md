@@ -37,3 +37,75 @@ status code
 200 OK - history에 기록 됨
 400 Bad Request - history에 기록 안됨
 404
+
+how to remember user
+
+- use cookie
+  session
+- memory,history between browser and backend(localhost)
+  cookie
+- 백엔드에서 요청을 보내는 유저에게 id(value)를 보내는 것 - 유저가 사용하는 browser 아이디를 주는 것
+- req.locals -> pug express 서로 다른 작업없이 접근 가능
+  - pug template에 import되어있음
+- localmiddleware의 순서가 중요
+  -session을 포함하기 떄문
+
+-session (middleware)
+
+- backend가 browser에 cookie를 보냄
+- cookie와 requests를 같이 보냄
+- session Id (browser 마다 다르게 보냄)
+- backend 는 현재 사용하는 session Id를 알고있음
+- backend와 cookie에 저장된다.
+
+- \*\*session id => save in the Cookie
+- \*\*session data => save in server-side(backend)
+
+1. middleware 생성: app.use(session{~~~}) (express-session)
+
+   - 백엔드와 소통할 때마다 브라우저에 cookie를 전송함
+
+- Cookie: 백엔드가 브라우저에게 주는 정보
+  - 매번 백엔드에 req를 할 때에 브라우저는 알아서 cookie를 같이 보냄
+- Cookie에 넣는 정보
+  - session ID
+
+-backend
+
+- session id를 관리하는 곳이다.
+- 서버 restart -> session store restart
+
+- http
+
+  - stateless
+
+- 브라우저 vs 웹서버
+  - 브라우저
+    - sessionId를 가지고있는 Cookie가 있고
+  - 웹서버
+    - req.sessionID
+    - req.session
+      - '웹서버의' session object이다
+        - session 안에 logged와 user가 존재, cookie도 존재
+      - 브라우저 마다 object가 다르다
+- session
+
+  - 처음 실행시 할 때 session id를 얻는다.
+
+- .env (dotenv)
+
+  - dotenv/config;
+
+- web application flow to authrize
+
+  1. Users are redirected to request their GitHub identity
+
+  2. Users are redirected back to your site by GitHub
+
+  3. Your app accesses the API with the user's access token
+
+- node-fetch ????
+
+  - javascript != nodeJS
+
+- rest api vs graphql ???

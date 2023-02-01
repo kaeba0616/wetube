@@ -1,11 +1,11 @@
-extends base 
+extends base
 //- extends base.pug
 include mixins/video
 
-block content  
+block content
   each potato in videos 
     //-li=video.title #{video}
-    +videoInfo(potato)
+    +video(potato)
     //- mixins 추가할때 +
 
   else

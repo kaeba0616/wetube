@@ -9,15 +9,27 @@ import {
   postUpload,
   deleteVideo,
 } from "../controllers/videoController";
+import { protectorMiddleware } from "../middlewares";
 
 const videoRouter = express.Router();
 
 videoRouter.route("/:id([0-9a-f]{24})").get(watch); //id 가 아니라 potato가 되도된다. 다른거 가능
-videoRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit); // HTTP 2개 이상일때 route사용
-videoRouter.route("/:id([0-9a-f]{24})/delete").get(deleteVideo);
+videoRouter
+  .route("/:id([0-9a-f]{24})/edit")
+  .all(protectorMiddleware)
+  .get(getEdit)
+  .post(postEdit); // HTTP 2개 이상일때 route사용
+videoRouter
+  .route("/:id([0-9a-f]{24})/delete")
+  .all(protectorMiddleware)
+  .get(deleteVideo);
 // videoRouter.get("/:id(\\d+)/edit", getEdit); // 12321331 - :id 대신 넣어된다.
 // videoRouter.post("/:id(\\d+)/edit", postEdit);
-videoRouter.route("/upload").get(getUpload).post(postUpload);
+videoRouter
+  .route("/upload")
+  .all(protectorMiddleware)
+  .get(getUpload)
+  .post(postUpload);
 // videoRouter.get("/upload", getUpload);
 // videoRouter.post("/upload", postUpload);
 
