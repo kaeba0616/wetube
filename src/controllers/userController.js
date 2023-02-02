@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { name, username, email, password, password2, location } = req.body;
   if (password !== password2) {
     return res.status(400).render("join", {
@@ -174,6 +174,39 @@ export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
+
+export const getChangePW = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePW = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPW, newPW, newPWComfirmation },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPW, user.password);
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The current password is incorrect",
+    });
+  }
+  if (newPW !== newPWComfirmation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The password does not match the confirmation",
+    });
+  }
+  user.password = newPW;
+  await user.save();
+  return res.redirect("/users/logout");
+};
+
 export const see = (req, res) => res.send("See User");
 
 // export default join;
