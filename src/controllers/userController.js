@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import Video from "../models/Video";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -141,10 +142,12 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, username: sessionUsername, email: sessionEmail },
+      user: { _id, avatarUrl, username: sessionUsername, email: sessionEmail },
     },
     body: { name, email, username, location },
+    file: { path },
   } = req;
+  console.log(file);
 
   const usernameExists =
     username != sessionUsername ? await User.exists({ username }) : undefined;
@@ -162,7 +165,13 @@ export const postEdit = async (req, res) => {
 
   const UpdateUser = await User.findByIdAndUpdate(
     _id,
-    { name, email, username, location },
+    {
+      avatarUrl: file ? file.path : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
     { new: true }
   );
 
@@ -207,6 +216,16 @@ export const postChangePW = async (req, res) => {
   return res.redirect("/users/logout");
 };
 
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found. " });
+  }
+  return res.render("users/profile", {
+    pageTitle: `${user.name}의 Profile`,
+    user,
+  });
+};
 
 // export default join;

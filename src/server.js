@@ -2,7 +2,6 @@
 // import "./models/Video";
 // import "./models/Users";
 // import "./models/Coments";
-
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
@@ -12,7 +11,7 @@ import videoRouter from "./routers/videoRouter"; // export default 값은 이름
 import userRouter from "./routers/userRouter";
 import { localsMiddleware } from "./middlewares";
 
-console.log(process.cwd());
+// console.log(process.cwd());
 
 const app = express();
 const logger = morgan("dev");
@@ -40,6 +39,7 @@ app.get("/add-one", (req, res, next) => {
 });
 
 app.use(localsMiddleware);
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
