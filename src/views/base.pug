@@ -3,6 +3,7 @@ html(lang="ko")
   head
     title #{ pageTitle } | #{ siteName }
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+    link(rel="stylesheet", href="/static/css/styles.css")
   body
     header
       h1= pageTitle
@@ -19,8 +20,6 @@ html(lang="ko")
             li
               a(href="/users/logout") Log Out
             li
-              a(href="/my-profile") #{ loggedInUser.name }의 Profile
-            li
               a(href="/videos/upload") Upload Video
           else
             li
@@ -35,3 +34,4 @@ html(lang="ko")
         //- extends  각 pug 파일에서 이 block을 변경시켜줌 - 창문과 같은역할
   include partials/footer
   //-include partials/footer.pug
+  script(src="/static/js/main.js")

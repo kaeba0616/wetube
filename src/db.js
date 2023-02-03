@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-mongoose.set("strictQuery", true);
+mongoose.set("strictQuery", false);
+
 mongoose.connect(process.env.DB_URL, {
   // 오래된것들 처리하기
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  // useCreateIndex: true,
+  // useCreateIndex: false,
   // useFindAndModify: false,
 }); //wetube or nameofDB
 

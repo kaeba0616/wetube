@@ -124,4 +124,12 @@ how to remember user
 - video save 할때마다 hash를 하기 때문에 hash값이 계속해서 달라진다
 - 즉, 로그인 안됨
 - if(this.isModified("password"))
--
+
+## Webpack
+
+- babel과 비슷한 효과
+- 모든 web browser가 읽을 수 있도록 만들어주는 것
+- newly JS, SCSS -> oldly JS, CSS
+- GULP free course -> similiar webpack
+- almost FrameWork contains Webpack
+- path.resolve(\_\_dirname, "assets", "js")
