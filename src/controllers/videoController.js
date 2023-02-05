@@ -3,7 +3,9 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   // try {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   // console.log("error", error);
   // console.log("videos", videos);
   res.render("home", { pageTitle: "Home", videos }); // return 써도됨
@@ -76,7 +78,9 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
-  const { _id } = req.session;
+  const {
+    user: { _id },
+  } = req.session;
   const { path: fileUrl } = req.file;
   const { title, description, hashtags } = req.body;
   try {
@@ -129,7 +133,7 @@ export const search = async (req, res) => {
         $regex: new RegExp(keyword, "i"), // i 대소문자 구분 없게 하기 ,`^${keyword}` ,`${keyword}$`
         //$gt: 3
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };

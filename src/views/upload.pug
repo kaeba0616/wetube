@@ -1,30 +1,30 @@
 extends base
 
 block content
-  if errorMessage
-    span= errorMessage
-  //- h3 hello from upload
-  form(method="POST", enctype="multipart/form-data")
-    label(for="video") Video File
-    input#video(type="file", accept="video/*", required, name="video")
-    input(
-      name="title",
-      placeholder="Title",
-      required,
-      type="text",
-      maxlength=80
-    )
-    input(
-      name="description",
-      placeholder="Description",
-      required,
-      type="text",
-      minlength=20
-    )
-    input(
-      name="hashtags",
-      placeholder="Hashtags, by seperated comma(,)",
-      required,
-      type="text"
-    )
-    input(type="submit", value="Upload Video")
+    if errorMessage
+        span= errorMessage
+    //- h3 hello from upload
+    form(method="POST", enctype="multipart/form-data")
+        label(for="video") Video File
+        input#video(type="file", accept="video/*", required, name="video")
+        input(
+            name="title",
+            placeholder="Title",
+            required,
+            type="text",
+            maxlength=80
+        )
+        input(
+            name="description",
+            placeholder="Description",
+            required,
+            type="text",
+            minlength=20
+        )
+        input(
+            name="hashtags",
+            placeholder="Hashtags, by seperated comma(,)",
+            required,
+            type="text"
+        )
+        input(type="submit", value="Upload Video")

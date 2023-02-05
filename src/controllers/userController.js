@@ -1,22 +1,22 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
-import Video from "../models/Video";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   // console.log(req.body);
+  pageTitle = "Join";
   const { name, username, email, password, password2, location } = req.body;
   if (password !== password2) {
     return res.status(400).render("join", {
-      pageTitle: "Join",
+      pageTitle,
       errorMessage: "Password confirmation does not match.",
     });
   }
   const usernameExists = await User.exists({ $or: [{ username }, { email }] }); //하나만 해당해도 실행됨!
   if (usernameExists) {
     return res.status(400).render("join", {
-      pageTitle: "Join",
+      pageTitle,
       errorMessage: "This username/email is already taken.",
     });
   }
@@ -31,7 +31,7 @@ export const postJoin = async (req, res) => {
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
-      pageTitle: "Upload Video",
+      pageTitle,
       errorMessage: error._message,
     });
   }
@@ -103,6 +103,7 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
+
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -110,6 +111,7 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
+
     const emailObj = emailData.find(
       (email) => email.primary === true && email.verified === true
     );
@@ -120,7 +122,7 @@ export const finishGithubLogin = async (req, res) => {
     if (!user) {
       user = await User.create({
         name: userData.name,
-        avatarUrl: userData.avator_url,
+        avatarUrl: userData.avatar_url,
         username: userData.login,
         email: emailObj.email,
         password: "",
@@ -161,7 +163,7 @@ export const postEdit = async (req, res) => {
     });
   }
 
-  const UpdateUser = await User.findByIdAndUpdate(
+  const UpdatedUser = await User.findByIdAndUpdate(
     _id,
     {
       avatarUrl: file ? file.path : avatarUrl,
@@ -173,7 +175,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
 
-  req.session.user = UpdateUser;
+  req.session.user = UpdatedUser;
 
   return res.redirect("/users/edit");
 };
@@ -216,12 +218,18 @@ export const postChangePW = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found. " });
   }
   return res.render("users/profile", {
-    pageTitle: `${user.name}의 Profile`,
+    pageTitle: user.name,
     user,
   });
 };

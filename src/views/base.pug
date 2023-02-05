@@ -1,37 +1,17 @@
 doctype html
 html(lang="ko")
-  head
-    title #{ pageTitle } | #{ siteName }
-    link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
-    link(rel="stylesheet", href="/static/css/styles.css")
-  body
-    header
-      h1= pageTitle
-        //- =variable => #{pageTitle}-> 여러 text를 같이 쓸경우 || 둘다 variable 선언하는 것이다.
-      nav
-        ul
-          li
-            a(href="/") Home
-          if loggedIn
-            li
-              a(href="/users/edit") Edit Profile
-            li
-              a(href=`/users/${loggedInUser._id}`) My Profile
-            li
-              a(href="/users/logout") Log Out
-            li
-              a(href="/videos/upload") Upload Video
-          else
-            li
-              a(href="/login") Login
-            li
-              a(href="/join") Join
-          li
-            a(href="/search") Search
-
-    main
-      block content
-        //- extends  각 pug 파일에서 이 block을 변경시켜줌 - 창문과 같은역할
-  include partials/footer
-  //-include partials/footer.pug
-  script(src="/static/js/main.js")
+    head
+        title #{ pageTitle } | #{ siteName }
+        link(
+            rel="stylesheet",
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        )
+        link(rel="stylesheet", href="/static/css/styles.css")
+    body
+        include partials/header
+        main
+            block content
+                //- extends  각 pug 파일에서 이 block을 변경시켜줌 - 창문과 같은역할
+        include partials/footer
+    //-include partials/footer.pug
+    script(src="/static/js/main.js")
