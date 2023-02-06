@@ -1,6 +1,7 @@
 doctype html
 html(lang="ko")
     head
+        link(rel="icon", href="data:;base64,iVBORw0KGgo=")
         title #{ pageTitle } | #{ siteName }
         link(
             rel="stylesheet",
@@ -14,4 +15,4 @@ html(lang="ko")
                 //- extends  각 pug 파일에서 이 block을 변경시켜줌 - 창문과 같은역할
         include partials/footer
     //-include partials/footer.pug
-    script(src="/static/js/main.js")
+    block scripts
