@@ -29,6 +29,8 @@ app.use((req, res, next) => {
 
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //- form를 javascript로 바꿔서 쓸수 있도록 설정
 app.use(
   session({

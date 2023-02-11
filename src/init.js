@@ -1,6 +1,7 @@
 import "dotenv/config";
 import "./db"; // mongo에 연결!!
 import "./models/Video";
+
 import "./models/User";
 import app from "./server";
 // import "./models/Users";
