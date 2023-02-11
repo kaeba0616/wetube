@@ -133,3 +133,23 @@ how to remember user
 - GULP free course -> similiar webpack
 - almost FrameWork contains Webpack
 - path.resolve(\_\_dirname, "assets", "js")
+
+# View API
+
+- interactivity : URL 안바꾸고 페이지 바꾸는 것
+  - ex) 댓글 달기, 조회수 바꾸기
+- data-attribute, data-set
+
+# WEBASSEMBLY VIDEO TRANSCODE
+
+- FFPMEG
+
+  - 비디오에 관한 모든 작업을 할수 있다 but 비싸다
+  - C로만들어졌다.
+  - backend에서 시작!!
+
+- WEBASSEMBLY
+
+  - FrontEnd
+
+- ffmpeg.wasm
