@@ -3,3 +3,5 @@
 /uploads
 /assetsgh
 .DS_Store
+/build
+password.txt

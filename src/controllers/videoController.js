@@ -20,7 +20,7 @@ export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
 
-  console.log(video);
+  // console.log(video);
   // console.log("Show Video", id);
   // console.log(req.params);
   if (!video) {

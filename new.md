@@ -158,3 +158,8 @@ how to remember user
 
 - express-flash
   - message-error 만들어줌!!
+
+# heroku
+
+- create a app && heroku git commit!!
+- processs.env.PORT || 4000;
